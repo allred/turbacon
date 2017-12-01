@@ -14,11 +14,13 @@ app.config.update(dict(
 
 app.config.from_envvar('TURBACON_SETTINGS', silent=True)
 
-def query_google_kgs():
+def query_google_kgs(q=None):
+    if q is None:
+        return {}
     params = {
-        "query": "taylor swift",
-        "limit": 1,
-        "indent": True,
+        "query": q,
+        "limit": 10,
+        "indent": False,
         "key": api_key,
     }
     url = service_url + "?" + urllib.parse.urlencode(params)
@@ -27,10 +29,13 @@ def query_google_kgs():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    q = request.args.get('q')
+    result = query_google_kgs(q)
+    return render_template('index.html', results=result, q=q)
+    #return render_template('index.html', results=request.args)
 
 @app.route('/query')
-def query():
+def query(term=None, limit=None):
     result = query_google_kgs()
     response = app.response_class(
         response=str(result),
