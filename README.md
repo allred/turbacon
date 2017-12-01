@@ -1,5 +1,7 @@
 # turbacon
 
+This software was developed using Python 3.6.3 and Flask.
+
 To run the server:
 
 ```
