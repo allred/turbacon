@@ -7,6 +7,9 @@ To run the server (inside a virtualenv):
 ```
 git clone https://github.com/allred/turbacon.git
 cd turbacon
+pyenv virtualenv 3.6.2 turbacon
+pyenv activate turbacon
+pip install -r requirements.txt
 pip install --editable .
 API_KEY_TURBACON=YourApiKeyHere ./runme
 ```
